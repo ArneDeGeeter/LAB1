@@ -1,0 +1,16 @@
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<Tab text="New Tab" fx:controller="sample.newTabController" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <AnchorPane  fx:id="anchor" id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <Label fx:id="fileLabel" text="No file selected yet" layoutX="7.0" layoutY="7" prefWidth="150.0"/>
+                <Button fx:id="button" onMouseClicked="#showFileChooser" text="Choose file" layoutX="7.0" layoutY="26" prefWidth="150.0"/>
+                <ChoiceBox fx:id="choiceBox" layoutX="7.0" layoutY="52.0" prefWidth="150.0" />
+            </children>
+        </AnchorPane>
+    </content>
+</Tab>

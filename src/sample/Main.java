@@ -25,21 +25,22 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Main/*extends Application */ {
+public class Main extends Application  {
     public static int firstProcess = 0;
 
-   /* @Override
+    @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setMinHeight(425);
+        primaryStage.setMinWidth(400);
         primaryStage.show();
-    }*/
+    }
 
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, ScriptException {
-        //launch(args);
-
+        launch(args);
         File file = new File("processen5.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
