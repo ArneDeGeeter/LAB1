@@ -83,9 +83,7 @@ public class Main/*extends Application */ {
         mlfbScheduler.startScheduling();
 
       /*  ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        String infix = "5 ^3";*/
-        System.out.println(eval("5^2"));
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");*/
 
     }
 

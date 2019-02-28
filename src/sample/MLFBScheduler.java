@@ -56,7 +56,7 @@ public class MLFBScheduler implements Scheduler {
             queues.get(currentQ+1 == queues.size() ? currentQ : currentQ + 1).add(process);
         }
         System.out.println(this.currentTime + " " + this.currentProcess);
-
+//aaaaaaa
     }
 
 
