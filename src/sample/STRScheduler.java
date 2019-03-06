@@ -64,8 +64,10 @@ public class STRScheduler implements Scheduler {
                 remainingProcesses.sort(cmp);
                 setNextProcess(remainingProcesses.get(0));
             }
-
         }
+    }
 
+    public List<Process> getAllProcesses() {
+        return allProcesses;
     }
 }

@@ -1,6 +1,6 @@
 package sample;
 
-public class Process {
+public class Process implements Comparable{
     public Process(int pid, int arrivaltime, int servicetime) {
         this.pid = pid;
         this.arrivaltime = arrivaltime;
@@ -11,12 +11,28 @@ public class Process {
     private final int pid;
     private final int arrivaltime;
     private final int servicetime;
+    private int waitTime;
+    private double genormaliseerdeTurnaroundTime;
 
     public Process(Process p) {
         this.pid = p.pid;
         this.arrivaltime = p.arrivaltime;
         this.servicetime = p.servicetime;
         this.timeRun = 0;
+    }
+
+    public void setWaitTime(){
+        this.waitTime =
+                this.endtime - this.arrivaltime - this.servicetime;
+    }
+
+    public void setGenormaliseerdeTurnaroundTime(){
+        this.genormaliseerdeTurnaroundTime =
+                (this.servicetime + this.waitTime) / this.servicetime;
+    }
+
+    public double getGenormaliseerdeTurnaroundTime() {
+        return genormaliseerdeTurnaroundTime;
     }
 
     public int getEndtime() {
@@ -68,5 +84,13 @@ public class Process {
                 ", endtime=" + endtime +
                 ", timeRun=" + timeRun +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.servicetime < ((Process)o).servicetime) return -1;
+        if(this.servicetime > ((Process)o).servicetime) return 1;
+        return 0;
+
     }
 }

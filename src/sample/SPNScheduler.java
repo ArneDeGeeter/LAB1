@@ -78,4 +78,8 @@ public class SPNScheduler implements Scheduler {
         }
         return shortestProcess;
     }
+
+    public List<Process> getAllProcesses() {
+        return allProcesses;
+    }
 }

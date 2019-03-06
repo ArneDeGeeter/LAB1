@@ -53,7 +53,7 @@ public class newTabController {
                 } else if (choiceBox.getItems().get((Integer) newValue).equals("Round robin")) {
                     button.setLayoutX(7);
                     button.setLayoutY(104 + 2 * 26);
-                    button.setDisable(true);
+                    button.setDisable(false);
                     button.setText("Run algorithm");
                     TextField txtfield = new TextField();
                     txtfield.setLayoutX(7);
@@ -84,6 +84,8 @@ public class newTabController {
                     button.setOnAction(e -> {
                         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file),Integer.parseInt(txtfield.getText()));
                         rrScheduler.startScheduling();
+
+                        GraphData.generateGraph(rrScheduler);
                     });
 
                     anchor.getChildren().add(txtfield);
@@ -119,7 +121,7 @@ public class newTabController {
 
     }
     public ArrayList<Process> fileToArraylist(File f){
-        File file = new File("processen5.xml");
+        File file = f;
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = null;

@@ -73,4 +73,12 @@ public class RRScheduler implements Scheduler {
 
         }
     }
+
+    public List<Process> getAllProcesses() {
+        return allProcesses;
+    }
+
+    public void setAllProcesses(List<Process> allProcesses) {
+        this.allProcesses = allProcesses;
+    }
 }

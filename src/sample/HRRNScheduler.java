@@ -63,6 +63,9 @@ public class HRRNScheduler implements Scheduler {
             }
 
         }
+    }
 
+    public List<Process> getAllProcesses() {
+        return allProcesses;
     }
 }

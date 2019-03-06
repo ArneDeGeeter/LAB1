@@ -96,4 +96,8 @@ public class MLFBScheduler implements Scheduler {
         }
         return empty;
     }
+
+    public List<Process> getAllProcesses() {
+        return allProcesses;
+    }
 }

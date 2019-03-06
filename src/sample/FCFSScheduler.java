@@ -41,4 +41,8 @@ public class FCFSScheduler implements Scheduler {
         }
         System.out.println(currentTime);
     }
+
+    public List<Process> getAllProcesses() {
+        return allProcesses;
+    }
 }
