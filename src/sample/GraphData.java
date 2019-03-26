@@ -7,12 +7,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphData {
+    private static final int AANTALPERCENTIELEN = 100;
     private List<List<Process>> percentielen;
 
-    public static void generateGraph(Scheduler scheduler){
+    public static void generatePercentileGraph(Scheduler scheduler){
         GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
         gd.postProcess();
-        gd.generateChart();
+        gd.generatePercentileChart();
+    }
+
+    public static void generateRelativeServiceTimeGraph(Scheduler scheduler){
+        GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
+        gd.postProcess();
+        gd.generateRelativeServiceTimeChart();
     }
 
     public GraphData(ArrayList<Process> processen){
@@ -20,12 +27,12 @@ public class GraphData {
 
         Collections.sort(processen);
 
-        int aantalProcessenPerPercentiel = processen.size()/100;
+        int aantalProcessenPerPercentiel = processen.size()/AANTALPERCENTIELEN;
         percentielen = new LinkedList<List<Process>>();
 
         LinkedList<Process> percentiel;
 
-        for(int i=0;i<100;i++)
+        for(int i=0;i<AANTALPERCENTIELEN;i++)
         {
             percentiel = new LinkedList<>();
 
@@ -51,7 +58,7 @@ public class GraphData {
         }
     }
 
-    public void generateChart(){
+    public void generatePercentileChart(){
          List<double[]> points = new LinkedList<>();
          double[] point;
 
@@ -67,7 +74,7 @@ public class GraphData {
                  point[1] += process.getGenormaliseerdeTurnaroundTime();
              }
 
-             point[1] /= percentielen.size();
+             point[1] /= percentiel.size();
              points.add(point);
 
              counter++;
@@ -79,5 +86,46 @@ public class GraphData {
          chart.setSize(600, 400);
          chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
          chart.setVisible(true);
+    }
+
+    public void generateRelativeServiceTimeChart(){
+        List<double[]> points = new LinkedList<>();
+        double[] point;
+
+        double gemiddeldeServiceTime;
+        for(List<Process> percentiel : percentielen)
+        {
+            gemiddeldeServiceTime = berekenGemiddeleServiceTime(percentiel);
+
+            point = new double[2];
+            point[0] = gemiddeldeServiceTime;
+            point[1] = 0;
+
+            for(Process process : percentiel)
+            {
+                point[1] += process.getGenormaliseerdeTurnaroundTime();
+            }
+
+            point[1] /= percentiel.size();
+            points.add(point);
+        }
+
+        Chart chart = new Chart("test", points);
+        chart.setAlwaysOnTop(true);
+        chart.pack();
+        chart.setSize(600, 400);
+        chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        chart.setVisible(true);
+    }
+
+    private static double berekenGemiddeleServiceTime(List<Process> percentiel){
+        int totaleServiceTime=0;
+
+        for(Process process : percentiel)
+        {
+            totaleServiceTime += process.getServicetime();
+        }
+
+        return totaleServiceTime / percentiel.size();
     }
 }

@@ -35,6 +35,5 @@ public class Chart extends ApplicationFrame {
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500*4, 270*4));
         setContentPane(chartPanel);
-
     }
 }
