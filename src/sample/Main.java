@@ -20,14 +20,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static sample.newTabController.fileToArraylist;
 
 public class Main extends Application  {
     public static int firstProcess = 0;
+    public static List<double[]> percentilePoints;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -41,6 +41,7 @@ public class Main extends Application  {
 
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, ScriptException {
+        doWork();
         launch(args);
         File file = new File("processen5.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
@@ -176,6 +177,53 @@ public class Main extends Application  {
                 return x;
             }
         }.parse();
+    }
+
+    private static void doWork(){
+        File file = new File("processen10000.xml");
+        /*
+        RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
+        rrScheduler.startScheduling();
+        GraphData.saveData(rrScheduler, "RR-");
+
+        FCFSScheduler fcfsScheduler = new FCFSScheduler(fileToArraylist(file));
+        fcfsScheduler.startScheduling();
+        GraphData.saveData(fcfsScheduler, "FCFS-");
+
+        HRRNScheduler hrrnScheduler = new HRRNScheduler(fileToArraylist(file));
+        hrrnScheduler.startScheduling();
+        GraphData.saveData(hrrnScheduler, "HRRN-");
+
+        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 5);
+        mlfbScheduler.startScheduling();
+        GraphData.saveData(mlfbScheduler, "MLFB-");
+
+        SPNScheduler spnScheduler = new SPNScheduler(fileToArraylist(file));
+        spnScheduler.startScheduling();
+        GraphData.saveData(mlfbScheduler, "SPN-");
+
+        STRScheduler strScheduler = new STRScheduler(fileToArraylist(file));
+        strScheduler.startScheduling();
+        GraphData.saveData(strScheduler, "STR-");
+        */
+
+
+        ArrayList<LinkedList<double[]>> data = new ArrayList<>();
+
+        data.add(DataTransferUtils.load("graphs/FCFS-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/HRRN-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/MLFB-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/RR-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/SPN-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/STR-percentile-time-graph.csv"));
+
+        Chart chart = new Chart("title", data);
+        chart.setAlwaysOnTop(true);
+        chart.pack();
+        chart.setSize(600, 400);
+        chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        chart.setVisible(true);
+
     }
 }
 

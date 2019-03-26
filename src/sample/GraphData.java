@@ -1,10 +1,13 @@
 package sample;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static sample.Main.percentilePoints;
 
 public class GraphData {
     private static final int AANTALPERCENTIELEN = 100;
@@ -20,6 +23,12 @@ public class GraphData {
         GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
         gd.postProcess();
         gd.generateRelativeServiceTimeChart();
+    }
+
+    public static void saveData(Scheduler scheduler, String fileName){
+        GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
+        gd.postProcess();
+        gd.makeFile(fileName);
     }
 
     public GraphData(ArrayList<Process> processen){
@@ -59,7 +68,7 @@ public class GraphData {
     }
 
     public void generatePercentileChart(){
-         List<double[]> points = new LinkedList<>();
+         LinkedList<double[]> points = new LinkedList<>();
          double[] point;
 
          int counter=1;
@@ -89,7 +98,7 @@ public class GraphData {
     }
 
     public void generateRelativeServiceTimeChart(){
-        List<double[]> points = new LinkedList<>();
+        LinkedList<double[]> points = new LinkedList<>();
         double[] point;
 
         double gemiddeldeServiceTime;
@@ -127,5 +136,62 @@ public class GraphData {
         }
 
         return totaleServiceTime / percentiel.size();
+    }
+
+    public void makeFile(String name){
+        List<double[]> points = new LinkedList<>();
+        double[] point;
+
+        double gemiddeldeServiceTime;
+        for(List<Process> percentiel : percentielen)
+        {
+            gemiddeldeServiceTime = berekenGemiddeleServiceTime(percentiel);
+
+            point = new double[2];
+            point[0] = gemiddeldeServiceTime;
+            point[1] = 0;
+
+            for(Process process : percentiel)
+            {
+                point[1] += process.getGenormaliseerdeTurnaroundTime();
+            }
+
+            point[1] /= percentiel.size();
+            points.add(point);
+        }
+
+        DataTransferUtils.save(name + "relative-time-graph.csv", points);
+
+        points = new LinkedList<>();
+
+        int counter=1;
+        for(List<Process> percentiel : percentielen)
+        {
+            point = new double[2];
+            point[0] = counter;
+            point[1] = 0;
+
+            for(Process process : percentiel)
+            {
+                point[1] += process.getGenormaliseerdeTurnaroundTime();
+            }
+
+            point[1] /= percentiel.size();
+            points.add(point);
+
+            counter++;
+        }
+        percentilePoints = points;
+
+        DataTransferUtils.save(name + "percentile-time-graph.csv", points);
+    }
+
+    public static void makeGraph(ArrayList<LinkedList<double[]>> pointsList){
+        Chart chart = new Chart("test", pointsList);
+        chart.setAlwaysOnTop(true);
+        chart.pack();
+        chart.setSize(600, 400);
+        chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        chart.setVisible(true);
     }
 }

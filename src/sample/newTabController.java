@@ -235,7 +235,7 @@ public class newTabController {
         button.setDisable(!number || !fileb);
 
     }
-    public ArrayList<Process> fileToArraylist(File f){
+    public static ArrayList<Process> fileToArraylist(File f){
         File file = f;
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
