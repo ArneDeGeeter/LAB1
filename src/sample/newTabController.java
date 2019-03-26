@@ -82,10 +82,12 @@ public class newTabController {
                     lbl.setText("Choose max time");
 
                     button.setOnAction(e -> {
-                        RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file),Integer.parseInt(txtfield.getText()));
+             /*           RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file),Integer.parseInt(txtfield.getText()));
                         rrScheduler.startScheduling();
-
-                        GraphData.generateGraph(rrScheduler);
+*/
+                        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 10);
+                        mlfbScheduler.startScheduling();
+                        GraphData.generateGraph(mlfbScheduler);
                     });
 
                     anchor.getChildren().add(txtfield);
@@ -120,7 +122,8 @@ public class newTabController {
         button.setDisable(!number || !fileb);
 
     }
-    public ArrayList<Process> fileToArraylist(File f){
+
+    public ArrayList<Process> fileToArraylist(File f) {
         File file = f;
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();

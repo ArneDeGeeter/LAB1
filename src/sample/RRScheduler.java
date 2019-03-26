@@ -50,7 +50,7 @@ public class RRScheduler implements Scheduler {
         } else {
             arrivedProcesses.add(process);
         }
-        System.out.println(this.currentTime + " " + this.currentProcess);
+    //    System.out.println(this.currentTime + " " + this.currentProcess);
 
     }
 
