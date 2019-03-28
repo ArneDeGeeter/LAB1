@@ -42,7 +42,7 @@ public class Main extends Application  {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, ScriptException {
         doWork();
-        launch(args);
+      /*  launch(args);
         File file = new File("processen5.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
@@ -82,9 +82,9 @@ public class Main extends Application  {
         strScheduler.startScheduling();*/
         /*HRRNScheduler hrrnScheduler= new HRRNScheduler(copyArrayList(processes));
         hrrnScheduler.startScheduling();*/
-        MLFBScheduler mlfbScheduler = new MLFBScheduler(copyArrayList(processes), "2^x", 5);
+      /*  MLFBScheduler mlfbScheduler = new MLFBScheduler(copyArrayList(processes), "2^x", 5);
         mlfbScheduler.startScheduling();
-
+*/
       /*  ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");*/
 
@@ -182,8 +182,7 @@ public class Main extends Application  {
     private static void doWork(){
         File file = new File("processen2" +
                 "0000.xml");
-        /*
-        File file = new File("processen50000.xml");
+
 
         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
         rrScheduler.startScheduling();
@@ -197,7 +196,7 @@ public class Main extends Application  {
         hrrnScheduler.startScheduling();
         GraphData.saveData(hrrnScheduler, "HRRN-");
 
-        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 5);
+        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 10);
         mlfbScheduler.startScheduling();
         GraphData.saveData(mlfbScheduler, "MLFB-");
 
@@ -208,7 +207,7 @@ public class Main extends Application  {
         STRScheduler strScheduler = new STRScheduler(fileToArraylist(file));
         strScheduler.startScheduling();
         GraphData.saveData(strScheduler, "STR-");
-        */
+
 
         Chart percentileChart = makePercentileGraphChart();
         Chart relativePercentileChart = makeRelativePercentileChart();
