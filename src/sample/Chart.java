@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Chart extends ApplicationFrame {
 
+    public JFreeChart chart;
+
     public Chart(final String title, LinkedList<double[]> points) {
 
         super(title);
@@ -33,12 +35,13 @@ public class Chart extends ApplicationFrame {
                 true,
                 false
         );
+        this.chart = chart;
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500 * 4, 270 * 4));
         setContentPane(chartPanel);
     }
 
-    public Chart(final String title, ArrayList<LinkedList<double[]>> pointsList) {
+    public Chart(final String title, ArrayList<LinkedList<double[]>> pointsList, String[] nameList) {
 
         super(title);
         final XYSeriesCollection data = new XYSeriesCollection();
@@ -79,6 +82,7 @@ public class Chart extends ApplicationFrame {
                 true,
                 false
         );
+        this.chart = chart;
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500 * 4, 270 * 4));
         setContentPane(chartPanel);
