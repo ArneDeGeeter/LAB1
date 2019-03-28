@@ -18,6 +18,7 @@ import static sample.Main.percentilePoints;
 public class GraphData {
     private static final int AANTALPERCENTIELEN = 100;
     private List<List<Process>> percentielen;
+    private double[] percentielWaarden;
 
     public static void generatePercentileGraph(Scheduler scheduler){
         GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
@@ -39,11 +40,12 @@ public class GraphData {
 
     public GraphData(ArrayList<Process> processen){
         int pointer=0;
+        percentielWaarden = new double[AANTALPERCENTIELEN];
 
         Collections.sort(processen);
 
         int aantalProcessenPerPercentiel = processen.size()/AANTALPERCENTIELEN;
-        percentielen = new LinkedList<List<Process>>();
+        percentielen = new LinkedList<>();
 
         LinkedList<Process> percentiel;
 
@@ -57,6 +59,7 @@ public class GraphData {
                 pointer++;
             }
 
+            percentielWaarden[i] = berekenGemiddeleServiceTime(percentiel);
             percentielen.add(percentiel);
         }
     }
@@ -81,7 +84,7 @@ public class GraphData {
          for(List<Process> percentiel : percentielen)
          {
              point = new double[2];
-             point[0] = counter;
+             point[0] = percentielWaarden[counter];
              point[1] = 0;
 
              for(Process process : percentiel)
@@ -170,11 +173,11 @@ public class GraphData {
 
         points = new LinkedList<>();
 
-        int counter=1;
+        int counter=0;
         for(List<Process> percentiel : percentielen)
         {
             point = new double[2];
-            point[0] = counter;
+            point[0] = percentielWaarden[counter];
             point[1] = 0;
 
             for(Process process : percentiel)

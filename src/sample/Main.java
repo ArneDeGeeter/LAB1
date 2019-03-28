@@ -180,6 +180,7 @@ public class Main extends Application  {
     }
 
     private static void doWork(){
+
         /*
         File file = new File("processen50000.xml");
 
@@ -207,6 +208,7 @@ public class Main extends Application  {
         strScheduler.startScheduling();
         GraphData.saveData(strScheduler, "STR-");
         */
+
 
         Chart percentileChart = makePercentileGraphChart();
         Chart relativePercentileChart = makeRelativePercentileChart();
