@@ -19,7 +19,7 @@ public class Chart extends ApplicationFrame {
         super(title);
         final XYSeries series = new XYSeries("Hello World");
 
-        for(double[] point : points)
+        for (double[] point : points)
             series.add(point[0], point[1]);
 
         final XYSeriesCollection data = new XYSeriesCollection(series);
@@ -34,7 +34,7 @@ public class Chart extends ApplicationFrame {
                 false
         );
         final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500*4, 270*4));
+        chartPanel.setPreferredSize(new java.awt.Dimension(500 * 4, 270 * 4));
         setContentPane(chartPanel);
     }
 
@@ -42,17 +42,35 @@ public class Chart extends ApplicationFrame {
 
         super(title);
         final XYSeriesCollection data = new XYSeriesCollection();
-        for(List<double[]> points : pointsList) {
-            final XYSeries series = new XYSeries("Hello World");
+        for (int i = 0; i < pointsList.size(); i++) {
+            XYSeries series = null;
+            if (i == 0) {
+                series = new XYSeries("FCFS");
+            } else if (i == 1) {
+                series = new XYSeries("HRRN");
 
-            for (double[] point : points)
+            } else if (i == 2) {
+
+                series = new XYSeries("MLFB");
+            } else if (i == 3) {
+
+                series = new XYSeries("RR");
+            } else if (i == 4) {
+                series = new XYSeries("SPN");
+
+            } else {
+
+                series = new XYSeries("STR");
+            }
+
+            for (double[] point : pointsList.get(i))
                 series.add(point[0], point[1]);
 
             data.addSeries(series);
         }
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Hello World",
+                "Normalized Turnaround Time",
                 "Service Time Percentile",
                 "Normalized Turnaround Time",
                 data,
@@ -62,7 +80,7 @@ public class Chart extends ApplicationFrame {
                 false
         );
         final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500*4, 270*4));
+        chartPanel.setPreferredSize(new java.awt.Dimension(500 * 4, 270 * 4));
         setContentPane(chartPanel);
     }
 }

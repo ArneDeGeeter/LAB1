@@ -41,7 +41,7 @@ public class STRScheduler implements Scheduler {
             arrivedProcesses.remove(process);
             process.setEndtime(currentTime);
         }
-        System.out.println(this.currentTime + " " + this.currentProcess);
+     //   System.out.println(this.currentTime + " " + this.currentProcess);
     }
 
 

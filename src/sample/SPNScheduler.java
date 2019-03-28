@@ -32,7 +32,7 @@ public class SPNScheduler implements Scheduler {
         process.setEndtime(currentTime);
         remainingProcesses.remove(currentProcess);
         arrivedProcesses.remove(currentProcess);
-        System.out.println(this.currentTime + " " + this.currentProcess+"SPN");
+ //       System.out.println(this.currentTime + " " + this.currentProcess+"SPN");
         for (int i = 0; i < remainingProcesses.size(); i++) {
             if (remainingProcesses.get(i).getArrivaltime() <= currentTime) {
                 arrivedProcesses.add(remainingProcesses.get(i));
@@ -62,7 +62,7 @@ public class SPNScheduler implements Scheduler {
             }
             amountProcesses++;
         }
-        System.out.println(currentTime);
+     //   System.out.println(currentTime);
 
     }
 

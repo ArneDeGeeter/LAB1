@@ -42,8 +42,8 @@ public class Main extends Application  {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, ScriptException {
         doWork();
-        launch(args);
-        File file = new File("processen5.xml");
+      //  launch(args);
+        /*File file = new File("processen5.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -81,9 +81,9 @@ public class Main extends Application  {
         STRScheduler strScheduler=new STRScheduler(copyArrayList(processes));
         strScheduler.startScheduling();*/
         /*HRRNScheduler hrrnScheduler= new HRRNScheduler(copyArrayList(processes));
-        hrrnScheduler.startScheduling();*/
+        hrrnScheduler.startScheduling();*//*
         MLFBScheduler mlfbScheduler = new MLFBScheduler(copyArrayList(processes), "2^x", 5);
-        mlfbScheduler.startScheduling();
+        mlfbScheduler.startScheduling();*/
 
       /*  ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");*/
@@ -180,8 +180,8 @@ public class Main extends Application  {
     }
 
     private static void doWork(){
-        File file = new File("processen10000.xml");
-        /*
+        File file = new File("processen1    0000.xml");
+
         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
         rrScheduler.startScheduling();
         GraphData.saveData(rrScheduler, "RR-");
@@ -194,7 +194,7 @@ public class Main extends Application  {
         hrrnScheduler.startScheduling();
         GraphData.saveData(hrrnScheduler, "HRRN-");
 
-        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 5);
+        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 10);
         mlfbScheduler.startScheduling();
         GraphData.saveData(mlfbScheduler, "MLFB-");
 
@@ -205,17 +205,17 @@ public class Main extends Application  {
         STRScheduler strScheduler = new STRScheduler(fileToArraylist(file));
         strScheduler.startScheduling();
         GraphData.saveData(strScheduler, "STR-");
-        */
+
 
 
         ArrayList<LinkedList<double[]>> data = new ArrayList<>();
 
-        data.add(DataTransferUtils.load("graphs/FCFS-percentile-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/HRRN-percentile-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/MLFB-percentile-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/RR-percentile-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/SPN-percentile-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/STR-percentile-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/FCFS-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/HRRN-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/MLFB-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/RR-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/SPN-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/STR-relative-time-graph.csv"));
 
         Chart chart = new Chart("title", data);
         chart.setAlwaysOnTop(true);

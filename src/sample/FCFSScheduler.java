@@ -25,7 +25,7 @@ public class FCFSScheduler implements Scheduler {
         this.currentTime += currentProcess.getServicetime();
         finishedProcesses.add(currentProcess);
         process.setEndtime(currentTime);
-        System.out.println(this.currentTime + " " + this.currentProcess);
+     //   System.out.println(this.currentTime + " " + this.currentProcess);
 
     }
 
