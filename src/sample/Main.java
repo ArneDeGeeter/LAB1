@@ -42,8 +42,8 @@ public class Main extends Application  {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, ScriptException {
         doWork();
-      //  launch(args);
-        /*File file = new File("processen5.xml");
+        launch(args);
+        File file = new File("processen5.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -81,9 +81,9 @@ public class Main extends Application  {
         STRScheduler strScheduler=new STRScheduler(copyArrayList(processes));
         strScheduler.startScheduling();*/
         /*HRRNScheduler hrrnScheduler= new HRRNScheduler(copyArrayList(processes));
-        hrrnScheduler.startScheduling();*//*
+        hrrnScheduler.startScheduling();*/
         MLFBScheduler mlfbScheduler = new MLFBScheduler(copyArrayList(processes), "2^x", 5);
-        mlfbScheduler.startScheduling();*/
+        mlfbScheduler.startScheduling();
 
       /*  ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");*/
@@ -180,7 +180,8 @@ public class Main extends Application  {
     }
 
     private static void doWork(){
-        File file = new File("processen1    0000.xml");
+        /*
+        File file = new File("processen50000.xml");
 
         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
         rrScheduler.startScheduling();
@@ -194,7 +195,7 @@ public class Main extends Application  {
         hrrnScheduler.startScheduling();
         GraphData.saveData(hrrnScheduler, "HRRN-");
 
-        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 10);
+        MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 5);
         mlfbScheduler.startScheduling();
         GraphData.saveData(mlfbScheduler, "MLFB-");
 
@@ -205,25 +206,78 @@ public class Main extends Application  {
         STRScheduler strScheduler = new STRScheduler(fileToArraylist(file));
         strScheduler.startScheduling();
         GraphData.saveData(strScheduler, "STR-");
+        */
 
+        Chart percentileChart = makePercentileGraphChart();
+        Chart relativePercentileChart = makeRelativePercentileChart();
 
-
+        GraphData.saveChartAsJPEG(
+                percentileChart,
+                "graphs/percentile chart.JPEG",
+                3000,
+                2000
+        );
+        GraphData.saveChartAsJPEG(
+                relativePercentileChart,
+                "graphs/relative percentile chart.JPEG",
+                3000,
+                2000
+        );
+    }
+    private static Chart makePercentileGraphChart(){
         ArrayList<LinkedList<double[]>> data = new ArrayList<>();
+        String[] nameList = new String[6];
+        int index = 0;
 
-        data.add(DataTransferUtils.load("graphs/FCFS-relative-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/HRRN-relative-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/MLFB-relative-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/RR-relative-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/SPN-relative-time-graph.csv"));
-        data.add(DataTransferUtils.load("graphs/STR-relative-time-graph.csv"));
+        data.add(DataTransferUtils.load("graphs/FCFS-percentile-time-graph.csv"));
+        nameList[index] = "FCFS";
+        data.add(DataTransferUtils.load("graphs/HRRN-percentile-time-graph.csv"));
+        nameList[index+1] = "HRRN";
+        data.add(DataTransferUtils.load("graphs/MLFB-percentile-time-graph.csv"));
+        nameList[index+2] = "MLFB";
+        data.add(DataTransferUtils.load("graphs/RR-percentile-time-graph.csv"));
+        nameList[index+3] = "RR";
+        data.add(DataTransferUtils.load("graphs/SPN-percentile-time-graph.csv"));
+        nameList[index+4] = "SPN";
+        data.add(DataTransferUtils.load("graphs/STR-percentile-time-graph.csv"));
+        nameList[index+5] = "STR";
 
-        Chart chart = new Chart("title", data);
+        Chart chart = new Chart("percentile graph", data, nameList);
         chart.setAlwaysOnTop(true);
         chart.pack();
         chart.setSize(600, 400);
         chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         chart.setVisible(true);
 
+        return chart;
+    }
+
+    private static Chart makeRelativePercentileChart(){
+        ArrayList<LinkedList<double[]>> data = new ArrayList<>();
+        String[] nameList = new String[6];
+        int index = 0;
+
+        data.add(DataTransferUtils.load("graphs/FCFS-relative-time-graph.csv"));
+        nameList[index] = "FCFS";
+        data.add(DataTransferUtils.load("graphs/HRRN-relative-time-graph.csv"));
+        nameList[index + 1] = "HRRN";
+        data.add(DataTransferUtils.load("graphs/MLFB-relative-time-graph.csv"));
+        nameList[index + 2] = "MLFB";
+        data.add(DataTransferUtils.load("graphs/RR-relative-time-graph.csv"));
+        nameList[index + 3] = "RR";
+        data.add(DataTransferUtils.load("graphs/SPN-relative-time-graph.csv"));
+        nameList[index + 4] = "SPN";
+        data.add(DataTransferUtils.load("graphs/STR-relative-time-graph.csv"));
+        nameList[index + 5] = "STR";
+
+        Chart chart = new Chart("relative percentile graph", data, nameList);
+        chart.setAlwaysOnTop(true);
+        chart.pack();
+        chart.setSize(600, 400);
+        chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        chart.setVisible(true);
+
+        return chart;
     }
 }
 

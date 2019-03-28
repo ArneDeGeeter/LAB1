@@ -1,7 +1,13 @@
 package sample;
 
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -186,12 +192,28 @@ public class GraphData {
         DataTransferUtils.save(name + "percentile-time-graph.csv", points);
     }
 
-    public static void makeGraph(ArrayList<LinkedList<double[]>> pointsList){
-        Chart chart = new Chart("test", pointsList);
+    public static void makeGraph(ArrayList<LinkedList<double[]>> pointsList, String[] nameList){
+        Chart chart = new Chart("test", pointsList, nameList);
         chart.setAlwaysOnTop(true);
         chart.pack();
         chart.setSize(600, 400);
         chart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         chart.setVisible(true);
+    }
+
+    public static void saveChartAsJPEG(Chart chart, String fileName, int breedte, int lengte){
+        try {
+            OutputStream out = new FileOutputStream(fileName);
+
+            ChartUtilities.writeChartAsJPEG(
+                    out,
+                    chart.chart,
+                    breedte,
+                    lengte
+            );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
