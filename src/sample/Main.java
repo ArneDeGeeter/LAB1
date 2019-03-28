@@ -180,7 +180,8 @@ public class Main extends Application  {
     }
 
     private static void doWork(){
-        File file = new File("processen1    0000.xml");
+        File file = new File("processen2" +
+                "0000.xml");
 
         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
         rrScheduler.startScheduling();

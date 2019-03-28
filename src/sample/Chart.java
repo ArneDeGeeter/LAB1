@@ -71,7 +71,7 @@ public class Chart extends ApplicationFrame {
 
         final JFreeChart chart = ChartFactory.createXYLineChart(
                 "Normalized Turnaround Time",
-                "Service Time Percentile",
+                "Service Time",
                 "Normalized Turnaround Time",
                 data,
                 PlotOrientation.VERTICAL,
