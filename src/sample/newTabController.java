@@ -98,7 +98,8 @@ public class newTabController {
 */
                         MLFBScheduler mlfbScheduler = new MLFBScheduler(fileToArraylist(file), "2^x", 10);
                         mlfbScheduler.startScheduling();
-                        GraphData.generateGraph(mlfbScheduler);
+                        GraphData.generatePercentileGraph(mlfbScheduler);
+                        GraphData.generateRelativeServiceTimeGraph(mlfbScheduler);
                     });
 
                     anchor.getChildren().add(txtfield);

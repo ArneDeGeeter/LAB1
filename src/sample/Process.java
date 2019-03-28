@@ -1,6 +1,6 @@
 package sample;
 
-public class Process implements Comparable{
+public class Process implements Comparable {
     public Process(int pid, int arrivaltime, int servicetime) {
         this.pid = pid;
         this.arrivaltime = arrivaltime;
@@ -13,6 +13,8 @@ public class Process implements Comparable{
     private final int servicetime;
     private int waitTime;
     private double genormaliseerdeTurnaroundTime;
+    private int endtime = -1;
+    private int timeRun;
 
     public Process(Process p) {
         this.pid = p.pid;
@@ -21,14 +23,12 @@ public class Process implements Comparable{
         this.timeRun = 0;
     }
 
-    public void setWaitTime(){
-        this.waitTime =
-                this.endtime - this.arrivaltime - this.servicetime;
+    public void setWaitTime() {
+        this.waitTime = this.endtime - this.arrivaltime - this.servicetime;
     }
 
-    public void setGenormaliseerdeTurnaroundTime(){
-        this.genormaliseerdeTurnaroundTime =
-                (this.servicetime + this.waitTime) / this.servicetime;
+    public void setGenormaliseerdeTurnaroundTime() {
+        this.genormaliseerdeTurnaroundTime = (this.servicetime + this.waitTime) / this.servicetime;
     }
 
     public double getGenormaliseerdeTurnaroundTime() {
@@ -43,7 +43,6 @@ public class Process implements Comparable{
         this.endtime = endtime;
     }
 
-    private int endtime = -1;
 
     public int getTimeRun() {
         return timeRun;
@@ -53,7 +52,6 @@ public class Process implements Comparable{
         this.timeRun = timeRun;
     }
 
-    private int timeRun;
 
     public int getPid() {
         return pid;
@@ -70,9 +68,9 @@ public class Process implements Comparable{
     public double calcTAT(int currenttime) {
         return this.servicetime + ((endtime == -1) ? currenttime : endtime) - this.arrivaltime - timeRun;
     }
-    public double calcnTAT(int currenttime){
-        System.out.println(pid+ " "+calcTAT(currenttime)/this.servicetime);
-        return calcTAT(currenttime)/this.servicetime;
+
+    public double calcnTAT(int currenttime) {
+        return calcTAT(currenttime) / this.servicetime;
     }
 
     @Override
@@ -88,8 +86,8 @@ public class Process implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        if(this.servicetime < ((Process)o).servicetime) return -1;
-        if(this.servicetime > ((Process)o).servicetime) return 1;
+        if (this.servicetime < ((Process) o).servicetime) return -1;
+        if (this.servicetime > ((Process) o).servicetime) return 1;
         return 0;
 
     }
