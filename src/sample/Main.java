@@ -181,10 +181,10 @@ public class Main extends Application  {
 
     private static void doWork(){
 
-        /*
+
         File file = new File("processen50000.xml");
 
-
+/*
         RRScheduler rrScheduler = new RRScheduler(fileToArraylist(file), 4);
         rrScheduler.startScheduling();
         GraphData.saveData(rrScheduler, "RR-");
@@ -203,12 +203,12 @@ public class Main extends Application  {
 
         SPNScheduler spnScheduler = new SPNScheduler(fileToArraylist(file));
         spnScheduler.startScheduling();
-        GraphData.saveData(mlfbScheduler, "SPN-");
+        GraphData.saveData(spnScheduler, "SPN-");
 
         STRScheduler strScheduler = new STRScheduler(fileToArraylist(file));
         strScheduler.startScheduling();
         GraphData.saveData(strScheduler, "STR-");
-
+*/
 
         Chart percentileChart = makePercentileGraphChart();
         Chart relativePercentileChart = makeRelativePercentileChart();

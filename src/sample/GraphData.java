@@ -19,6 +19,7 @@ public class GraphData {
     private static final int AANTALPERCENTIELEN = 100;
     private List<List<Process>> percentielen;
     private double[] percentielWaarden;
+    private double[] waitingTimes;
 
     public static void generatePercentileGraph(Scheduler scheduler){
         GraphData gd = new GraphData((ArrayList) scheduler.getAllProcesses());
@@ -41,6 +42,7 @@ public class GraphData {
     public GraphData(ArrayList<Process> processen){
         int pointer=0;
         percentielWaarden = new double[AANTALPERCENTIELEN];
+        waitingTimes = new double[AANTALPERCENTIELEN];
 
         Collections.sort(processen);
 
@@ -147,33 +149,41 @@ public class GraphData {
         return totaleServiceTime / percentiel.size();
     }
 
+    private static double berekenGemiddeldeWaitingTime(List<Process> percentiel){
+        int totalWaitingTime=0;
+
+        for(Process process : percentiel)
+        {
+            totalWaitingTime += process.getWaitTime();
+        }
+
+        return totalWaitingTime / percentiel.size();
+    }
+
     public void makeFile(String name){
         List<double[]> points = new LinkedList<>();
         double[] point;
 
         double gemiddeldeServiceTime;
+        double gemiddeldeWaitingTime;
+        int counter = 0;
+
         for(List<Process> percentiel : percentielen)
         {
             gemiddeldeServiceTime = berekenGemiddeleServiceTime(percentiel);
 
             point = new double[2];
-            point[0] = gemiddeldeServiceTime;
-            point[1] = 0;
-
-            for(Process process : percentiel)
-            {
-                point[1] += process.getGenormaliseerdeTurnaroundTime();
-            }
-
-            point[1] /= percentiel.size();
+            point[0] = percentielWaarden[counter];
+            point[1] = berekenGemiddeldeWaitingTime(percentiel);
             points.add(point);
+            counter++;
         }
 
         DataTransferUtils.save(name + "relative-time-graph.csv", points);
 
         points = new LinkedList<>();
 
-        int counter=0;
+        counter=0;
         for(List<Process> percentiel : percentielen)
         {
             point = new double[2];

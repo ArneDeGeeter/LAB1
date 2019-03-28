@@ -84,6 +84,14 @@ public class Process implements Comparable {
                 '}';
     }
 
+    public int getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
+
     @Override
     public int compareTo(Object o) {
         if (this.servicetime < ((Process) o).servicetime) return -1;
